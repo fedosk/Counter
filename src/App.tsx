@@ -6,8 +6,9 @@ import {SettingsCounter} from './SettingsCounter/SettingsCounter';
 function App() {
 
     const [value, setValue] = useState<number>( 0)
-    const [maxValue, setMaxValue] = useState<number>( 0)
+    const [maxValue, setMaxValue] = useState<number>( 5)
     const [minValue, setMinValue] = useState<number>( 0)
+    const [changeCuonter, setChangeCounter]  = useState<boolean>(false)
 
     const inc = (num: number) => {
         setValue(num)
@@ -18,6 +19,7 @@ function App() {
     }
 
     const setNumber = (numMin: number, numMax: number) => {
+        setChangeCounter(false)
         setMaxValue(numMax)
         setMinValue(numMin)
     }
@@ -30,6 +32,10 @@ function App() {
         setMinValue(numMin)
     }
 
+    const setFocus = (focus: boolean) => {
+        setChangeCounter(focus)
+    }
+
     return (
         <div className="App">
             <SettingsCounter
@@ -39,6 +45,8 @@ function App() {
                 setNumber={setNumber}
                 changeMaxValues={changeMaxValues}
                 changeMinValues={changeMinValues}
+                changeCuonter={changeCuonter}
+                setFocus={setFocus}
             />
             <Counter
                 value={value}
@@ -46,6 +54,7 @@ function App() {
                 minValue={minValue}
                 inc={inc}
                 reset={reset}
+                changeCuonter={changeCuonter}
             />
         </div>
     );

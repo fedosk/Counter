@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import Btn from '../Buttons/Btn';
 
 type settingsCounterPropsType = {
@@ -8,6 +8,8 @@ type settingsCounterPropsType = {
     setNumber: (numMin: number, numMax: number) => void
     changeMaxValues: (numMax: number) => void
     changeMinValues: (numMin: number) => void
+    changeCuonter: boolean
+    setFocus: (focus: boolean) => void
 }
 
 export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
@@ -16,19 +18,26 @@ export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
                                                                         changeMaxValues,
                                                                         changeMinValues,
                                                                         setNumber,
-                                                                        inc}) => {
+                                                                        inc,
+                                                                        changeCuonter,
+                                                                        setFocus}) => {
+
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         changeMaxValues(+e.currentTarget.value)
     }
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-        inc(+e.currentTarget.value)
         changeMinValues(+e.currentTarget.value)
     }
 
     const setNumbers = () => {
-        setNumber( minValue, maxValue)
+        inc(minValue)
+        setNumber(minValue, maxValue)
+    }
+
+    const focused = () => {
+        setFocus(true)
     }
 
     return (
@@ -39,16 +48,20 @@ export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
                         <input
                             type="number"
                             value={maxValue}
-                            onChange={changeMaxValue}/>
+                            onChange={changeMaxValue}
+                            onFocus={focused}
+                        />
+
                         <input
                             type="number"
                             value={minValue}
                             onChange={changeMinValue}
+                            onFocus={focused}
                         />
                     </div>
                     <div className="btnWrapper">
                         <Btn
-                            disabled={false}
+                            disabled={!changeCuonter}
                             onClick={setNumbers}
                         >Set</Btn>
                     </div>

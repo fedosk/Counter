@@ -8,6 +8,7 @@ type counterPropsType = {
     minValue: number
     inc: (num: number) => void
     reset: (num: number) => void
+    changeCuonter: boolean
 }
 
 export const Counter = (props: counterPropsType) => {
@@ -37,6 +38,7 @@ export const Counter = (props: counterPropsType) => {
                     <Display
                         value={props.value}
                         maxValue={props.maxValue}
+                        changeCuonter={props.changeCuonter}
                     />
                     <div className="btnWrapper">
                         <Btn
