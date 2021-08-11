@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  margin: 20px;
 }
 
 .counterWrapper {
@@ -19,19 +19,23 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-width: 450px;
-  min-height: 200px;
+  width: 450px;
+  height: 300px;
   border: 5px solid #5534a3;
   border-radius: 15px;
 }
 
-.counterDisplay {
+.counterDisplay,
+.displaySetWrapper,
+.setValue,
+.errorSetValue
+{
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 100px;
-  min-width: 400px;
-  min-height: 150px;
+  width: 400px;
+  height: 150px;
   background-color: #5534a3;
   border-radius: 15px;
   margin-top: 15px;
@@ -77,3 +81,69 @@ button:disabled {
   color: red;
   font-weight: bold;
 }
+
+.setValue {
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.errorSetValue {
+  font-size: 30px;
+  color: red;
+}
+
+.displaySetWrapper {
+
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  outline:none;
+  margin-right: 30px;
+  font-size: 20px;
+  text-align: center;
+  background-color: #462c8d;
+}
+
+.input + .input,
+.errorInput + .errorInput{
+ margin-top: 25px;
+}
+
+.errorInput {
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  outline:none;
+  margin-right: 30px;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.3);
+}
+
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100px;
+}
+
+.setValueSpan {
+  margin-left: 40px;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.setValueSpan + .setValueSpan {
+  margin-top: 42px;
+}
+

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Btn from './Buttons/Btn'
 import {Display} from './Display/Display';
 
@@ -9,25 +9,26 @@ type counterPropsType = {
     inc: (num: number) => void
     reset: (num: number) => void
     changeCuonter: boolean
+    incDis: boolean
+    resetDis: boolean
+    changeResetBtn: (dis: boolean) => void
+    changeIncBtn: (dis: boolean) => void
 }
 
 export const Counter = (props: counterPropsType) => {
 
-    const [incDis, setIncDis] = useState<boolean>(false)
-    const [resetDis, setResetDis] = useState<boolean>(true)
-
     const inc = () => {
-        setResetDis(false)
+        props.changeResetBtn(false)
         if (props.value < props.maxValue) {
             props.inc(props.value + 1)
         } else {
-            setIncDis(true)
+            props.changeIncBtn(true)
         }
     }
 
     const reset = () => {
-        setIncDis(false)
-        setResetDis(true)
+        props.changeIncBtn(false)
+        props.changeResetBtn(true)
         props.reset(props.minValue)
     }
 
@@ -38,15 +39,16 @@ export const Counter = (props: counterPropsType) => {
                     <Display
                         value={props.value}
                         maxValue={props.maxValue}
+                        minValue={props.minValue}
                         changeCuonter={props.changeCuonter}
                     />
                     <div className="btnWrapper">
                         <Btn
-                            disabled={incDis}
+                            disabled={props.incDis || props.value === props.maxValue}
                             onClick={inc}
                         >Inc</Btn>
                         <Btn
-                            disabled={resetDis}
+                            disabled={props.resetDis}
                             onClick={reset}
                         >Reset</Btn>
                     </div>

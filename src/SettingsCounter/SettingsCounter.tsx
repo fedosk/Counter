@@ -10,6 +10,8 @@ type settingsCounterPropsType = {
     changeMinValues: (numMin: number) => void
     changeCuonter: boolean
     setFocus: (focus: boolean) => void
+    changeResetBtn: (dis: boolean) => void
+    changeIncBtn: (dis: boolean) => void
 }
 
 export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
@@ -19,21 +21,27 @@ export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
                                                                         changeMinValues,
                                                                         setNumber,
                                                                         inc,
-                                                                        changeCuonter,
-                                                                        setFocus}) => {
+                                                                        setFocus,
+                                                                        changeResetBtn,
+                                                                        changeIncBtn}) => {
 
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         changeMaxValues(+e.currentTarget.value)
+        changeIncBtn(true)
+        changeResetBtn(true)
     }
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
         changeMinValues(+e.currentTarget.value)
+        changeIncBtn(true)
+        changeResetBtn(true)
     }
 
     const setNumbers = () => {
         inc(minValue)
         setNumber(minValue, maxValue)
+        changeIncBtn(false)
     }
 
     const focused = () => {
@@ -44,26 +52,34 @@ export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
         <>
             <div className="counterContainer">
                 <div className="counterWrapper">
-                    <div>
-                        <input
-                            type="number"
-                            value={maxValue}
-                            onChange={changeMaxValue}
-                            onFocus={focused}
-                        />
+                    <div className={'displaySetWrapper'}>
 
-                        <input
-                            type="number"
-                            value={minValue}
-                            onChange={changeMinValue}
-                            onFocus={focused}
-                        />
+                        <div className={'textWrapper'}>
+                            <span className={'setValueSpan'}>max value:</span>
+                            <span className={'setValueSpan'}>min value:</span>
+                        </div>
+
+                        <div className={'inputWrapper'}>
+                            <input
+                                className={(maxValue < minValue || maxValue < 0 || minValue < 0 || maxValue === minValue) ? 'errorInput' : 'input'}
+                                type="number"
+                                value={maxValue}
+                                onChange={changeMaxValue}
+                                onFocus={focused}/>
+
+                            <input
+                                className={(maxValue < minValue || maxValue < 0 || minValue < 0 || maxValue === minValue) ? 'errorInput' : 'input'}
+                                type="number"
+                                value={minValue}
+                                onChange={changeMinValue}
+                                onFocus={focused}/>
+                        </div>
                     </div>
                     <div className="btnWrapper">
                         <Btn
-                            disabled={!changeCuonter}
-                            onClick={setNumbers}
-                        >Set</Btn>
+                            disabled={(maxValue < minValue || maxValue < 0 || minValue < 0 || maxValue === minValue)}
+                            onClick={setNumbers}>Set
+                        </Btn>
                     </div>
                 </div>
             </div>
