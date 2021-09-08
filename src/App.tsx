@@ -15,26 +15,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 function App() {
 
-    /*useEffect(() => {
-        let minNum = localStorage.getItem("MinValue")
-        let maxNum = localStorage.getItem("MaxValue")
-        if(minNum && maxNum) {
-            let storMinNum = JSON.parse(minNum)
-            let storMaxNum = JSON.parse(maxNum)
-            setMinValue(storMinNum)
-            setValue(storMinNum)
-            setMaxValue(storMaxNum)
-            if (storMinNum >= storMaxNum) {
-                setChangeCounter(true)
-            }
-        }
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem("MaxValue", JSON.stringify(maxValue))
-        localStorage.setItem("MinValue", JSON.stringify(minValue))
-    }, [maxValue, minValue])*/
-
     const value = useSelector<AppRootStateType, number>(state => state.counter.value)
     const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
     const minValue = useSelector<AppRootStateType, number>(state => state.counter.minValue)
@@ -93,3 +73,24 @@ function App() {
 }
 
 export default App;
+
+
+/*useEffect(() => {
+     let minNum = localStorage.getItem("MinValue")
+     let maxNum = localStorage.getItem("MaxValue")
+     if(minNum && maxNum) {
+         let storMinNum = JSON.parse(minNum)
+         let storMaxNum = JSON.parse(maxNum)
+         setMinValue(storMinNum)
+         setValue(storMinNum)
+         setMaxValue(storMaxNum)
+         if (storMinNum >= storMaxNum) {
+             setChangeCounter(true)
+         }
+     }
+ }, [])
+
+ useEffect(() => {
+     localStorage.setItem("MaxValue", JSON.stringify(maxValue))
+     localStorage.setItem("MinValue", JSON.stringify(minValue))
+ }, [maxValue, minValue])*/
