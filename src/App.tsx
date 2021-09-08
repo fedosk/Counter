@@ -2,16 +2,20 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Counter} from './Counter';
 import {SettingsCounter} from './SettingsCounter/SettingsCounter';
+import {
+    incremetValue,
+    InitialStateType,
+    resetValue, setFucus,
+    setMaxValue,
+    setMinAndMaxValues,
+    setMinValue
+} from "./bll/counter-reducer";
+import {AppRootStateType, AppStoreType, store} from "./bll/store";
+import {useDispatch, useSelector} from "react-redux";
 
 function App() {
-    const [value, setValue] = useState<number>( 0)
-    const [maxValue, setMaxValue] = useState<number>( 5)
-    const [minValue, setMinValue] = useState<number>( 0)
-    const [changeCuonter, setChangeCounter]  = useState<boolean>(false)
-    const [incDis, setIncDis] = useState<boolean>(false)
-    const [resetDis, setResetDis] = useState<boolean>(true)
 
-    useEffect(() => {
+    /*useEffect(() => {
         let minNum = localStorage.getItem("MinValue")
         let maxNum = localStorage.getItem("MaxValue")
         if(minNum && maxNum) {
@@ -29,55 +33,50 @@ function App() {
     useEffect(() => {
         localStorage.setItem("MaxValue", JSON.stringify(maxValue))
         localStorage.setItem("MinValue", JSON.stringify(minValue))
-    }, [maxValue, minValue])
+    }, [maxValue, minValue])*/
 
-    const inc = (num: number) => {
-        setValue(num)
+    const value = useSelector<AppRootStateType, number>(state => state.counter.value)
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue)
+    const minValue = useSelector<AppRootStateType, number>(state => state.counter.minValue)
+    const changeCuonter = useSelector<AppRootStateType, boolean>(state => state.counter.changeCounter)
+    const incDis = useSelector<AppRootStateType, boolean>(state => state.counter.incBtnDislable)
+    const resetDis = useSelector<AppRootStateType, boolean>(state => state.counter.resetBtnDislable)
+
+    const dispatch = useDispatch()
+
+    const inc = () => {
+        dispatch(incremetValue())
     }
 
-    const reset = (num: number) => {
-        setValue(num)
-    }
-
-    const setNumber = (numMin: number, numMax: number) => {
-        setChangeCounter(false)
-        setMaxValue(numMax)
-        setMinValue(numMin)
+    const reset = () => {
+        dispatch(resetValue())
     }
 
     const changeMaxValues = (numMax: number) => {
-        setMaxValue(numMax)
+        dispatch(setMaxValue(numMax))
     }
 
     const changeMinValues = (numMin: number) => {
-        setMinValue(numMin)
+        dispatch(setMinValue(numMin))
     }
 
-    const setFocus = (focus: boolean) => {
-        setChangeCounter(focus)
+    const setNumber = () => {
+        dispatch(setMinAndMaxValues())
     }
 
-    const changeIncBtn = (dis: boolean) => {
-        setIncDis(dis)
-    }
-
-    const changeResetBtn = (dis: boolean) => {
-        setResetDis(dis)
+    const setFocus = () => {
+        dispatch(setFucus())
     }
 
     return (
         <div className="App">
             <SettingsCounter
-                inc={inc}
                 maxValue={maxValue}
                 minValue={minValue}
                 setNumber={setNumber}
                 changeMaxValues={changeMaxValues}
                 changeMinValues={changeMinValues}
-                changeCuonter={changeCuonter}
                 setFocus={setFocus}
-                changeIncBtn={changeIncBtn}
-                changeResetBtn={changeResetBtn}
             />
             <Counter
                 value={value}
@@ -88,8 +87,6 @@ function App() {
                 resetDis={resetDis}
                 inc={inc}
                 reset={reset}
-                changeIncBtn={changeIncBtn}
-                changeResetBtn={changeResetBtn}
             />
         </div>
     );

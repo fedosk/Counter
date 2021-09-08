@@ -6,30 +6,21 @@ type counterPropsType = {
     value: number
     maxValue: number
     minValue: number
-    inc: (num: number) => void
-    reset: (num: number) => void
+    inc: () => void
+    reset: () => void
     changeCuonter: boolean
     incDis: boolean
     resetDis: boolean
-    changeResetBtn: (dis: boolean) => void
-    changeIncBtn: (dis: boolean) => void
 }
 
 export const Counter = (props: counterPropsType) => {
 
     const inc = () => {
-        props.changeResetBtn(false)
-        if (props.value < props.maxValue) {
-            props.inc(props.value + 1)
-        } else {
-            props.changeIncBtn(true)
-        }
+        props.inc()
     }
 
     const reset = () => {
-        props.changeIncBtn(false)
-        props.changeResetBtn(true)
-        props.reset(props.minValue)
+        props.reset()
     }
 
     return (

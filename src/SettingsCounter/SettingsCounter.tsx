@@ -4,14 +4,10 @@ import Btn from '../Buttons/Btn';
 type settingsCounterPropsType = {
     maxValue: number
     minValue: number
-    inc: (num: number) => void
-    setNumber: (numMin: number, numMax: number) => void
+    setNumber: () => void
     changeMaxValues: (numMax: number) => void
     changeMinValues: (numMin: number) => void
-    changeCuonter: boolean
-    setFocus: (focus: boolean) => void
-    changeResetBtn: (dis: boolean) => void
-    changeIncBtn: (dis: boolean) => void
+    setFocus: () => void
 }
 
 export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
@@ -20,32 +16,24 @@ export const SettingsCounter: React.FC<settingsCounterPropsType> = ({
                                                                         changeMaxValues,
                                                                         changeMinValues,
                                                                         setNumber,
-                                                                        inc,
                                                                         setFocus,
-                                                                        changeResetBtn,
-                                                                        changeIncBtn}) => {
+                                                                      }) => {
 
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
         changeMaxValues(+e.currentTarget.value)
-        changeIncBtn(true)
-        changeResetBtn(true)
     }
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
         changeMinValues(+e.currentTarget.value)
-        changeIncBtn(true)
-        changeResetBtn(true)
     }
 
     const setNumbers = () => {
-        inc(minValue)
-        setNumber(minValue, maxValue)
-        changeIncBtn(false)
+        setNumber()
     }
 
     const focused = () => {
-        setFocus(true)
+        setFocus()
     }
 
     return (
